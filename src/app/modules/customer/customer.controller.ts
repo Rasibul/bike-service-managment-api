@@ -34,9 +34,44 @@ const getAllCustomersHandler = catchAsync(async (_req: Request, res: Response) =
     });
 });
 
+const getSingleCustomerHandler = catchAsync(async (req: Request, res: Response) => {
+    const { customerId } = req.params;
+    const customer = await customerService.getSingleCustomer(customerId);
+
+    if (!customer) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Customer not found');
+    }
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Customer fetched successfully',
+        data: customer,
+    });
+});
+
+
+const updateSingleCustomerHandler = catchAsync(async (req: Request, res: Response) => {
+    const { customerId } = req.params;
+    const updatedCustomer = await customerService.updateSingleCustomer(customerId, req.body);
+
+    if (!updatedCustomer) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Customer not found or update failed');
+    }
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Customer updated successfully',
+        data: updatedCustomer,
+    });
+});
+
 
 export const customerController = {
     createCustomerHandler,
-    getAllCustomersHandler
+    getAllCustomersHandler,
+    getSingleCustomerHandler,
+    updateSingleCustomerHandler,
 };
 

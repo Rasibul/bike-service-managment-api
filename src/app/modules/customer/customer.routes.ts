@@ -8,6 +8,10 @@ router.post('/customer', customerController.createCustomerHandler);
 
 router.get('/customers', customerController.getAllCustomersHandler);
 
+router.get('/customer/:customerId', customerController.getSingleCustomerHandler);
+
+router.put('/customers/:customerId', customerController.updateSingleCustomerHandler);
+
 
 
 export const customerRoutes = router;

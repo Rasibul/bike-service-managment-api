@@ -20,9 +20,41 @@ const getAllCustomers = async () => {
 };
 
 
+const getSingleCustomer = async (customerId: string) => {
+    return prisma.customer.findUnique({
+        where: { customerId },
+    });
+};
+
+const updateSingleCustomer = async (
+    customerId: string,
+    data: Partial<{ name: string; email: string; phone: string }>
+) => {
+    // check if customer exists first
+    const isCustomerExist = await prisma.customer.findUnique({
+        where: { customerId },
+    });
+
+    if (!isCustomerExist) {
+        return null; // controller will handle this
+    }
+
+    // safe to update
+    return prisma.customer.update({
+        where: { customerId },
+        data,
+    });
+};
+
+
+
+
+
 export const customerService = {
     createCustomer,
     getAllCustomers,
+    getSingleCustomer,
+    updateSingleCustomer,
 };
 
 
