@@ -1,5 +1,8 @@
 import express from 'express';
 import cors from 'cors';
+import { customerRoutes } from './app/modules/customer/customer.routes';
+
+
 
 
 const app: express.Application = express();
@@ -11,6 +14,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.send('Bike Service Management Api  Sever Is Running!');
 });
 
+
+app.use('/api', customerRoutes);
 
 
 export default app;
