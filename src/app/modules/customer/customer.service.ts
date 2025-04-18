@@ -46,6 +46,23 @@ const updateSingleCustomer = async (
     });
 };
 
+const deleteSingleCustomer = async (customerId: string) => {
+    const isCustomerExist = await prisma.customer.findUnique({
+        where: { customerId },
+    });
+
+    if (!isCustomerExist) {
+        return null;
+    }
+
+    await prisma.customer.delete({
+        where: { customerId },
+    });
+
+    return true;
+};
+
+
 
 
 
@@ -55,6 +72,7 @@ export const customerService = {
     getAllCustomers,
     getSingleCustomer,
     updateSingleCustomer,
+    deleteSingleCustomer,
 };
 
 

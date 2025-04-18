@@ -68,10 +68,28 @@ const updateSingleCustomerHandler = catchAsync(async (req: Request, res: Respons
 });
 
 
+const deleteSingleCustomerHandler = catchAsync(async (req: Request, res: Response) => {
+    const { customerId } = req.params;
+
+    const deleted = await customerService.deleteSingleCustomer(customerId);
+
+    if (!deleted) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Customer not found');
+    }
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Customer deleted successfully',
+    });
+});
+
+
 export const customerController = {
     createCustomerHandler,
     getAllCustomersHandler,
     getSingleCustomerHandler,
     updateSingleCustomerHandler,
+    deleteSingleCustomerHandler,
 };
 

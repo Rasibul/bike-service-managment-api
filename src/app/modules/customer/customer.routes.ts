@@ -12,6 +12,8 @@ router.get('/customer/:customerId', customerController.getSingleCustomerHandler)
 
 router.put('/customers/:customerId', customerController.updateSingleCustomerHandler);
 
+router.delete('/customers/:customerId', customerController.deleteSingleCustomerHandler);
+
 
 
 export const customerRoutes = router;
