@@ -9,5 +9,7 @@ router.post('/bikes', bikeController.createBikeHandler);
 
 router.get('/bikes', bikeController.getAllBikesHandler);
 
+router.get('/bikes/:id', bikeController.getSingleBikeHandler);
+
 export const bikeRoutes = router;
 

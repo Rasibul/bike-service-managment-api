@@ -33,7 +33,25 @@ const getAllBikesHandler = catchAsync(async (_req: Request, res: Response) => {
 });
 
 
+const getSingleBikeHandler = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const bike = await bikeService.getSingleBike(id);
+
+    if (!bike) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Bike not found');
+    }
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Bike fetched successfully',
+        data: bike,
+    });
+});
+
+
 export const bikeController = {
     createBikeHandler,
     getAllBikesHandler,
+    getSingleBikeHandler,
 };
