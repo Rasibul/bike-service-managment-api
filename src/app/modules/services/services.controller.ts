@@ -3,6 +3,7 @@ import catchAsync from '../../utilities/catchAsync';
 import httpStatus from "http-status";
 import sendResponse from '../../utilities/sendResponse';
 import { serviceService } from './services.service';
+import AppError from '../../errors/AppError';
 
 const createServiceRecordHandler = catchAsync(async (req: Request, res: Response) => {
     const { bikeId, serviceDate, description, status } = req.body;
@@ -16,7 +17,6 @@ const createServiceRecordHandler = catchAsync(async (req: Request, res: Response
     });
 
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Service record created successfully',
         data: serviceRecord,
@@ -27,14 +27,30 @@ const getAllServiceRecordsHandler = catchAsync(async (req: Request, res: Respons
     const services = await serviceService.getAllServiceRecords();
 
     sendResponse(res, {
-        statusCode: httpStatus.OK,
         success: true,
         message: 'Service records fetched successfully',
         data: services,
     });
 });
 
+const getServiceRecordByIdHandler = catchAsync(async (req: Request, res: Response) => {
+    const { serviceId } = req.params;
+
+    const service = await serviceService.getServiceRecordById(serviceId);
+
+    if (!service) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Service record not found');
+    }
+
+    sendResponse(res, {
+        success: true,
+        message: 'Service record fetched successfully',
+        data: service,
+    });
+});
+
 export const serviceController = {
     createServiceRecordHandler,
     getAllServiceRecordsHandler,
+    getServiceRecordByIdHandler,
 };

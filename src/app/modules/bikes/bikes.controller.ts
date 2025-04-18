@@ -14,7 +14,6 @@ const createBikeHandler = catchAsync(async (req: Request, res: Response) => {
     }
 
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Bike added successfully',
         data: bike,
@@ -25,7 +24,6 @@ const getAllBikesHandler = catchAsync(async (_req: Request, res: Response) => {
     const bikes = await bikeService.getAllBikes();
 
     sendResponse(res, {
-        statusCode: httpStatus.OK,
         success: true,
         message: 'Bikes fetched successfully',
         data: bikes,
@@ -42,7 +40,6 @@ const getSingleBikeHandler = catchAsync(async (req: Request, res: Response) => {
     }
 
     sendResponse(res, {
-        statusCode: httpStatus.OK,
         success: true,
         message: 'Bike fetched successfully',
         data: bike,
