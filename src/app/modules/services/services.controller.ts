@@ -49,8 +49,30 @@ const getServiceRecordByIdHandler = catchAsync(async (req: Request, res: Respons
     });
 });
 
+
+const completeServiceRecordHandler = catchAsync(async (req: Request, res: Response) => {
+    const { serviceId } = req.params;
+    const { completionDate } = req.body;
+
+    // Use current time if no completionDate is provided
+    const finalCompletionDate = completionDate || new Date();
+
+    const service = await serviceService.completeServiceRecord(serviceId, finalCompletionDate);
+
+    if (!service) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Service record not found');
+    }
+
+    sendResponse(res, {
+        success: true,
+        message: 'Service marked as completed',
+        data: service,
+    });
+});
+
 export const serviceController = {
     createServiceRecordHandler,
     getAllServiceRecordsHandler,
     getServiceRecordByIdHandler,
+    completeServiceRecordHandler,
 };
