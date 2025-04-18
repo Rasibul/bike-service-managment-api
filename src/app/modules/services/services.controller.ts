@@ -69,10 +69,26 @@ const completeServiceRecordHandler = catchAsync(async (req: Request, res: Respon
         data: service,
     });
 });
+const getPendingOrOverdueServicesHandler = catchAsync(async (req: Request, res: Response) => {
+    const sevenDaysAgo = new Date();
+    console.log(sevenDaysAgo);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const services = await serviceService.getPendingOrOverdueServices(sevenDaysAgo);
+    console.log(services);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Overdue or pending services fetched successfully',
+        data: services,
+    });
+});
 
 export const serviceController = {
     createServiceRecordHandler,
     getAllServiceRecordsHandler,
     getServiceRecordByIdHandler,
     completeServiceRecordHandler,
+    getPendingOrOverdueServicesHandler,
 };

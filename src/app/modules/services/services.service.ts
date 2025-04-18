@@ -4,7 +4,7 @@ const createServiceRecord = async (data: {
     bikeId: string;
     serviceDate: Date;
     description: string;
-    status: "PENDING" | "COMPLETED" | "CANCELLED"; // Replace with actual ServiceStatus enum values
+    status: "pending" | "in_progress" | "done"; // Replace with actual ServiceStatus enum values
 }) => {
     const service = await prisma.serviceRecord.create({
         data: {
@@ -42,9 +42,23 @@ const completeServiceRecord = async (serviceId: string, completionDate: Date) =>
     return service;
 };
 
+const getPendingOrOverdueServices = async (sevenDaysAgo: Date) => {
+    return prisma.serviceRecord.findMany({
+        where: {
+            status: {
+                in: ['pending', 'in_progress'],
+            },
+            serviceDate: {
+                lt: sevenDaysAgo,
+            },
+        },
+    });
+};
+
 export const serviceService = {
     createServiceRecord,
     getAllServiceRecords,
     getServiceRecordById,
     completeServiceRecord,
+    getPendingOrOverdueServices,
 };
