@@ -1,6 +1,8 @@
 // import prisma from "../../utilities/prismaCLient";
 
-import prismaCLient from "../../utilities/prismaCLient";
+import prisma from "../../utilities/prismaCLient";
+
+
 
 
 const createCustomer = async (data: {
@@ -8,12 +10,19 @@ const createCustomer = async (data: {
     email: string;
     phone: string;
 }) => {
-    const customer = await prismaCLient.customer.create({ data });
+    const customer = await prisma.customer.create({ data });
     return customer;
 };
 
+
+const getAllCustomers = async () => {
+    return prisma.customer.findMany({ orderBy: { createdAt: 'desc' } });
+};
+
+
 export const customerService = {
     createCustomer,
+    getAllCustomers,
 };
 
 

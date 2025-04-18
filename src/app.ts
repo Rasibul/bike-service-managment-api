@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { customerRoutes } from './app/modules/customer/customer.routes';
+import globalErrorHandler from './app/errors/globalErrorHandler';
 
 
 
@@ -16,6 +17,13 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 
 app.use('/api', customerRoutes);
+
+
+
+
+
+
+app.use(globalErrorHandler);
 
 
 export default app;
