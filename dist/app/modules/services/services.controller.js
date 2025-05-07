@@ -28,6 +28,7 @@ const createServiceRecordHandler = (0, catchAsync_1.default)((req, res) => __awa
         status,
     });
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Service record created successfully',
         data: serviceRecord,
@@ -36,6 +37,7 @@ const createServiceRecordHandler = (0, catchAsync_1.default)((req, res) => __awa
 const getAllServiceRecordsHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const services = yield services_service_1.serviceService.getAllServiceRecords();
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Service records fetched successfully',
         data: services,
@@ -48,6 +50,7 @@ const getServiceRecordByIdHandler = (0, catchAsync_1.default)((req, res) => __aw
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Service record not found');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Service record fetched successfully',
         data: service,
@@ -63,6 +66,7 @@ const completeServiceRecordHandler = (0, catchAsync_1.default)((req, res) => __a
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Service record not found');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Service marked as completed',
         data: service,
@@ -75,7 +79,7 @@ const getPendingOrOverdueServicesHandler = (0, catchAsync_1.default)((req, res) 
     const services = yield services_service_1.serviceService.getPendingOrOverdueServices(sevenDaysAgo);
     console.log(services);
     (0, sendResponse_1.default)(res, {
-        statusCode: 200,
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Overdue or pending services fetched successfully',
         data: services,

@@ -24,6 +24,7 @@ const createBikeHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Customer not found');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Bike added successfully',
         data: bike,
@@ -32,6 +33,7 @@ const createBikeHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void
 const getAllBikesHandler = (0, catchAsync_1.default)((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bikes = yield bikes_service_1.bikeService.getAllBikes();
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Bikes fetched successfully',
         data: bikes,
@@ -44,6 +46,7 @@ const getSingleBikeHandler = (0, catchAsync_1.default)((req, res) => __awaiter(v
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Bike not found');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Bike fetched successfully',
         data: bike,

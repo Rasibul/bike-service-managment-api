@@ -24,6 +24,7 @@ const createCustomerHandler = (0, catchAsync_1.default)((req, res) => __awaiter(
         throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, 'Failed to create customer');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.CREATED,
         success: true,
         message: 'Customer created successfully',
         data: customer,
@@ -32,6 +33,7 @@ const createCustomerHandler = (0, catchAsync_1.default)((req, res) => __awaiter(
 const getAllCustomersHandler = (0, catchAsync_1.default)((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const customers = yield customer_service_1.customerService.getAllCustomers();
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Customers fetched successfully',
         data: customers,
@@ -44,6 +46,7 @@ const getSingleCustomerHandler = (0, catchAsync_1.default)((req, res) => __await
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Customer not found');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Customer fetched successfully',
         data: customer,
@@ -56,6 +59,7 @@ const updateSingleCustomerHandler = (0, catchAsync_1.default)((req, res) => __aw
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Customer not found or update failed');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Customer updated successfully',
         data: updatedCustomer,
@@ -68,6 +72,7 @@ const deleteSingleCustomerHandler = (0, catchAsync_1.default)((req, res) => __aw
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Customer not found');
     }
     (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
         success: true,
         message: 'Customer deleted successfully',
     });

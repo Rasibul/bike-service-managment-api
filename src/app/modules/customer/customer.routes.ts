@@ -4,11 +4,11 @@ const router = express.Router();
 
 
 
-router.post('/customer', customerController.createCustomerHandler);
+router.post('/customers', customerController.createCustomerHandler);
 
 router.get('/customers', customerController.getAllCustomersHandler);
 
-router.get('/customer/:customerId', customerController.getSingleCustomerHandler);
+router.get('/customers/:customerId', customerController.getSingleCustomerHandler);
 
 router.put('/customers/:customerId', customerController.updateSingleCustomerHandler);
 
