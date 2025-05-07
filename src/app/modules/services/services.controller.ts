@@ -17,6 +17,7 @@ const createServiceRecordHandler = catchAsync(async (req: Request, res: Response
     });
 
     sendResponse(res, {
+        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Service record created successfully',
         data: serviceRecord,
@@ -27,6 +28,7 @@ const getAllServiceRecordsHandler = catchAsync(async (req: Request, res: Respons
     const services = await serviceService.getAllServiceRecords();
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Service records fetched successfully',
         data: services,
@@ -43,6 +45,7 @@ const getServiceRecordByIdHandler = catchAsync(async (req: Request, res: Respons
     }
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Service record fetched successfully',
         data: service,
@@ -64,6 +67,7 @@ const completeServiceRecordHandler = catchAsync(async (req: Request, res: Respon
     }
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Service marked as completed',
         data: service,
@@ -78,7 +82,7 @@ const getPendingOrOverdueServicesHandler = catchAsync(async (req: Request, res: 
     console.log(services);
 
     sendResponse(res, {
-        statusCode: 200,
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Overdue or pending services fetched successfully',
         data: services,

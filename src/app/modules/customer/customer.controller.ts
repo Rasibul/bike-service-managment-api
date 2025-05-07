@@ -15,6 +15,7 @@ const createCustomerHandler = catchAsync(async (req: Request, res: Response) => 
     }
 
     sendResponse(res, {
+        statusCode: httpStatus.CREATED,
         success: true,
         message: 'Customer created successfully',
         data: customer,
@@ -26,6 +27,7 @@ const getAllCustomersHandler = catchAsync(async (_req: Request, res: Response) =
     const customers = await customerService.getAllCustomers();
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customers fetched successfully',
         data: customers,
@@ -41,6 +43,7 @@ const getSingleCustomerHandler = catchAsync(async (req: Request, res: Response) 
     }
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer fetched successfully',
         data: customer,
@@ -57,6 +60,7 @@ const updateSingleCustomerHandler = catchAsync(async (req: Request, res: Respons
     }
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer updated successfully',
         data: updatedCustomer,
@@ -74,6 +78,7 @@ const deleteSingleCustomerHandler = catchAsync(async (req: Request, res: Respons
     }
 
     sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Customer deleted successfully',
     });
